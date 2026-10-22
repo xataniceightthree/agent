@@ -1,0 +1,27 @@
+# --- AGENT (JANGAN di-push) ---
+AGENT.md
+agent/
+agent/bin/
+agent/*.go
+agent/go.mod
+agent/go.sum
+agent/host_key
+agent/users.json
+
+# --- Client: source diabaikan, hanya BINER + addr.txt yang di-push ---
+client/*.go
+client/go.mod
+client/go.sum
+client/bin/client
+client/bin/client.exe
+
+# Biner client yang WAJIB di-push (dipakai install.sh via curl dari GitHub)
+!client/bin/client-linux-amd64
+!client/bin/client-linux-arm64
+!client/bin/client-linux-386
+!client/addr.txt
+
+# --- Umum ---
+*.log
+host_key
+.DS_Store
