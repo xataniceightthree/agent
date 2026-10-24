@@ -31,7 +31,7 @@ func buildClient() *fasthttp.Client {
 		MaxConnsPerHost:     10000,
 		MaxIdleConnDuration: 90 * time.Second,
 		ReadTimeout:         60 * time.Second,
-		WriteTimeout:        60 * time.Second,
+		WriteTimeout:        30 * time.Second,
 	}
 }
 
