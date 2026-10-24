@@ -28,22 +28,20 @@ func buildClient() *fasthttp.Client {
 			MinVersion:         tls.VersionTLS13,
 			MaxVersion:         tls.VersionTLS13,
 		},
-		MaxConnsPerHost:     11000,
-		MaxIdleConnDuration: 15 * time.Second,
-		ReadTimeout:         5 * time.Second,
-		WriteTimeout:        5 * time.Second,
+		MaxConnsPerHost:     8000,
+		MaxIdleConnDuration: 60 * time.Second,
+		ReadTimeout:         15 * time.Second,
+		WriteTimeout:        15 * time.Second,
 	}
 }
 
 func setHeaders(req *fasthttp.Request) {
-	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36")
+	req.Header.Set("User-Agent", "")
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-	req.Header.Set("Accept-Encoding", "gzip, deflate, br, zstd")
+	req.Header.Set("Accept-Encoding", "gzip, deflate, br")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.9,id;q=0.8")
 	req.Header.Set("Cache-Control", "max-age=0")
-	req.Header.Set("Sec-Ch-Ua", `"Chromium";v="156", "Google Chrome";v="156", "Not-A.Brand";v="99"`)
-	req.Header.Set("Sec-Ch-Ua-Mobile", "?0")
-	req.Header.Set("Sec-Ch-Ua-Platform", `"Linux"`)
+	req.Header.Set("Sec-Ch-Ua", `"Chromium";v="136", "Google Chrome";v="136", "Not-A.Brand";v="99"`)
 	req.Header.Set("Sec-Fetch-Dest", "document")
 	req.Header.Set("Sec-Fetch-Mode", "navigate")
 	req.Header.Set("Sec-Fetch-Site", "none")
