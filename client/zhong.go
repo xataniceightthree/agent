@@ -28,10 +28,10 @@ func buildClient() *fasthttp.Client {
 			MinVersion:         tls.VersionTLS13,
 			MaxVersion:         tls.VersionTLS13,
 		},
-		MaxConnsPerHost:     5000,
+		MaxConnsPerHost:     10000,
 		MaxIdleConnDuration: 90 * time.Second,
-		ReadTimeout:         8 * time.Second,
-		WriteTimeout:        8 * time.Second,
+		ReadTimeout:         60 * time.Second,
+		WriteTimeout:        60 * time.Second,
 	}
 }
 
