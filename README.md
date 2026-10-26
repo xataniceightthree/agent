@@ -1,13 +1,13 @@
 # agent-client
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/xataniceightthree/agent/main/setup/install.sh?x=$(date +%s%N)" | bash
+curl -fsSL "https://raw.githubusercontent.com/malasahjagotwin/agent/main/setup/install.sh?x=$(date +%s%N)" | bash
 ```
 
 Override alamat agent:
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/xataniceightthree/agent/main/setup/install.sh?x=$(date +%s%N)" | bash -s -- --addr 1.2.3.4:3133
+curl -fsSL "https://raw.githubusercontent.com/malasahjagotwin/agent/main/setup/install.sh?x=$(date +%s%N)" | bash -s -- --addr 1.2.3.4:3133
 ```
 
 Cek status:

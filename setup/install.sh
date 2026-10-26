@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Bot-only installer.
-#   curl -fsSL https://raw.githubusercontent.com/xataniceightthree/agent/main/setup/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/malasahjagotwin/agent/main/setup/install.sh | bash
 # Optional args:
 #   ... | bash -s -- --addr IP:PORT      # override agent address
 #   ... | bash -s -- --background        # run detached (default: foreground)
 set -euo pipefail
 
-REPO="xataniceightthree/agent"
+REPO="malasahjagotwin/agent"
 BRANCH="main"
 RAW="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
 
