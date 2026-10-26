@@ -25,3 +25,7 @@ client/bin/client.exe
 *.log
 host_key
 .DS_Store
+
+# --- Secrets ---
+.env
+.env.*
