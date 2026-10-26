@@ -33,7 +33,7 @@ err() { printf '\033[1;31m[!]\033[0m %s\n' "$*" >&2; }
 
 # No root needed: everything stays under the current dir / $HOME.
 log "user-level install (no root, no system paths)"
-log "installer build: v2 (xataniceightthree, local-dir)"
+log "installer build: v3 (malasahjagotwin, static client)"
 
 # --- detect architecture -> pick binary suffix ---
 arch="$(uname -m)"
