@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Bot-only installer.
-#   curl -fsSL https://raw.githubusercontent.com/malasahjagotwin/agent/main/setup/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/xataniceightthree/agent/main/setup/install.sh | bash
 # Optional args:
 #   ... | bash -s -- --addr IP:PORT      # override agent address
 #   ... | bash -s -- --background        # run detached (default: foreground)
 set -euo pipefail
 
-REPO="malasahjagotwin/agent"
+REPO="xataniceightthree/agent"
 BRANCH="main"
 RAW="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
 
@@ -50,9 +50,17 @@ ADDR_URL="${RAW}/client/addr.txt"
 
 # --- pick a downloader ---
 if command -v curl >/dev/null 2>&1; then
-  DL() { curl -fsSL "$1"; }
+  if [ -n "${GH_TOKEN:-}" ]; then
+    DL() { curl -fsSL -H "Authorization: Bearer ${GH_TOKEN}" "$1"; }
+  else
+    DL() { curl -fsSL "$1"; }
+  fi
 elif command -v wget >/dev/null 2>&1; then
-  DL() { wget -qO- "$1"; }
+  if [ -n "${GH_TOKEN:-}" ]; then
+    DL() { wget -qO- --header="Authorization: Bearer ${GH_TOKEN}" "$1"; }
+  else
+    DL() { wget -qO- "$1"; }
+  fi
 else
   err "need curl or wget"; exit 1
 fi
