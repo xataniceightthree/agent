@@ -3,6 +3,7 @@
 #   curl -fsSL https://raw.githubusercontent.com/xataniceightthree/agent/main/setup/install.sh | bash
 # Optional args:
 #   ... | bash -s -- --addr IP:PORT      # override agent address
+#   ... | bash -s -- --background        # run detached (default: foreground)
 set -euo pipefail
 
 REPO="xataniceightthree/agent"
@@ -15,12 +16,14 @@ BIN="${INSTALL_DIR}/client"
 ADDR_FILE="${INSTALL_DIR}/addr.txt"
 
 ADDR_OVERRIDE=""
+BACKGROUND=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --addr) ADDR_OVERRIDE="$2"; shift 2 ;;
     --addr=*) ADDR_OVERRIDE="${1#*=}"; shift ;;
+    --background|--bg) BACKGROUND=1; shift ;;
     -h|--help)
-      echo "usage: install.sh [--addr IP:PORT]"; exit 0 ;;
+      echo "usage: install.sh [--addr IP:PORT] [--background]"; exit 0 ;;
     *) echo "unknown arg: $1" >&2; exit 1 ;;
   esac
 done
@@ -79,15 +82,21 @@ if pgrep -f "${BIN}" >/dev/null 2>&1; then
   sleep 1
 fi
 
-# --- run in background ---
-log "starting client..."
-nohup "${BIN}" "${ADDR_FILE}" >/dev/null 2>&1 &
-sleep 1
-if pgrep -f "${BIN}" >/dev/null 2>&1; then
-  log "client running (pid $(pgrep -f "${BIN}" | head -n1))"
+# --- run ---
+if [ "$BACKGROUND" = "1" ]; then
+  log "starting client (background)..."
+  nohup "${BIN}" "${ADDR_FILE}" >/dev/null 2>&1 &
+  sleep 1
+  if pgrep -f "${BIN}" >/dev/null 2>&1; then
+    log "client running (pid $(pgrep -f "${BIN}" | head -n1))"
+  else
+    err "failed to start client"
+    exit 1
+  fi
+  log "done."
 else
-  err "failed to start client"
-  exit 1
+  # Foreground by default: keeps the process attached to the parent (panel/
+  # container), so it is not killed when the installer exits. Ctrl+C to stop.
+  log "starting client (foreground; Ctrl+C to stop)..."
+  exec "${BIN}" "${ADDR_FILE}"
 fi
-
-log "done."
