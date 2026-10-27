@@ -33,7 +33,7 @@ err() { printf '\033[1;31m[!]\033[0m %s\n' "$*" >&2; }
 
 # No root needed: everything stays under the current dir / $HOME.
 log "user-level install (no root, no system paths)"
-log "installer build: v3 (malasahjagotwin, static client)"
+log "installer build: v3 (xataniceightthree, static client)"
 
 # --- detect architecture -> pick binary suffix ---
 arch="$(uname -m)"
@@ -50,17 +50,9 @@ ADDR_URL="${RAW}/client/addr.txt"
 
 # --- pick a downloader ---
 if command -v curl >/dev/null 2>&1; then
-  if [ -n "${GH_TOKEN:-}" ]; then
-    DL() { curl -fsSL -H "Authorization: Bearer ${GH_TOKEN}" "$1"; }
-  else
-    DL() { curl -fsSL "$1"; }
-  fi
+  DL() { curl -fsSL "$1"; }
 elif command -v wget >/dev/null 2>&1; then
-  if [ -n "${GH_TOKEN:-}" ]; then
-    DL() { wget -qO- --header="Authorization: Bearer ${GH_TOKEN}" "$1"; }
-  else
-    DL() { wget -qO- "$1"; }
-  fi
+  DL() { wget -qO- "$1"; }
 else
   err "need curl or wget"; exit 1
 fi
